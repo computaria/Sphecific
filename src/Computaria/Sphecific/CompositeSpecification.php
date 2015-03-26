@@ -26,7 +26,7 @@ class CompositeSpecification implements SpecificationInterface
         return true;
     }
 
-    public function remainderUnsatisfiedBy()
+    public function remainsUnsatisfiedBy()
     {
         return $this->failedSpecification;
     }

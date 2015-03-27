@@ -53,4 +53,13 @@ class CompositeSpecificationTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($this->sizeSpecification->whyWasNotSatisfied(), $this->composite->whyWasNotSatisfied());
     }
+
+    public function testRemainsUnsatisfiedByShouldReturnFailedSpecification()
+    {
+        $this->composite->add($this->sizeSpecification);
+
+        $this->composite->isSatisfiedBy(new \ArrayObject);
+
+        $this->assertSame($this->sizeSpecification, $this->composite->remainsUnsatisfiedBy());
+    }
 }

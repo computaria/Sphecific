@@ -10,14 +10,13 @@ class CompositeSpecification implements SpecificationInterface
     public function __construct()
     {
         $this->leafs = new \SplObjectStorage;
-        $this->failedSpecification = new \SplObjectStorage;
     }
 
     public function isSatisfiedBy($object)
     {
         foreach ($this->leafs as $leaf) {
             if (false === $leaf->isSatisfiedBy($object)) {
-                $this->failedSpecification->attach($leaf);
+                $this->failedSpecification = $leaf;
 
                 return false;
             }
@@ -33,9 +32,7 @@ class CompositeSpecification implements SpecificationInterface
 
     public function whyWasNotSatisfied()
     {
-        $this->failedSpecification->rewind();
-
-        return $this->failedSpecification->current()->whyWasNotSatisfied();
+        return $this->failedSpecification->whyWasNotSatisfied();
     }
 
     public function add(SpecificationInterface $leafSpecification)
